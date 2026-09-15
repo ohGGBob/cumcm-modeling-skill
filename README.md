@@ -10,6 +10,11 @@
 cumcm-modeling-skill/
 ├── SKILL.md                          # 数模 skill 主体（可被 DSH 直接加载）
 ├── README.md                         # 本文件
+├── scripts/
+│   └── analyze.py                    # 数据分析+可视化工具（matrix/field/check 三子命令）
+├── examples/
+│   ├── sample_results.csv            #   多管线结果矩阵示例（含一条离群"读反D"路）
+│   └── expected.json                 #   期望量级自检范围
 └── docs/
     ├── failure-ledger.md              # 量化失败台账（症状→根因→便宜抓法→后果，18 条）
     ├── workspace-inventory.md         # 工作区全部文件盘点（顶层目录 + 关键产物）
@@ -26,6 +31,14 @@ cumcm-modeling-skill/
 - 想逐条对照"这样做会失败" → 读 `docs/failure-ledger.md`（18 条量化台账）。
 - 想看完整证据链（哪里难、AI 哪里做砸了）→ 读 `docs/lessons-learned.md`。
 - 想看清这个工作区里到底有什么 → 读 `docs/workspace-inventory.md`。
+- 想跑数据分析/可视化 → 读 `SKILL.md` §12，用 `scripts/analyze.py`（示例输入在 `examples/`）。
+
+### 数据分析 + 可视化工具（`scripts/analyze.py`）
+- `python analyze.py matrix results.csv --out-prefix out/comp`　多管线对比：共识区间 + IQR 离群标记 + ECharts 平行坐标 HTML。
+- `python analyze.py field result1.xlsx --mode both --t 100,600,1800 --r 0,1.0,2.0 --out T.png`　结果场时间序列 + 剖面图。
+- `python analyze.py check results.csv --expected expected.json`　期望量级自检（越界即标）。
+
+`matrix`/`check` 仅用标准库；`field` 需 `pandas openpyxl matplotlib`。
 
 ## 方法论速览
 

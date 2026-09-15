@@ -222,6 +222,25 @@ description: 数学建模竞赛（CUMCM 高教社杯、美赛等）中如何用 
 
 ---
 
+## 12. 数据分析与可视化工具（`scripts/analyze.py`）
+
+本 skill 自带一个脚本，把 §6–§7 的「离群审计 / 期望量级自检 / 场可视化」落成一条命令，直接读数模交付物（CSV 结果矩阵、result xlsx）。零第三方依赖即可跑 `matrix`/`check`（`field` 需 pandas/openpyxl/matplotlib）。
+
+| 子命令 | 干什么 | 对应方法论 | 示例 |
+|---|---|---|---|
+| `matrix` | 多管线结果矩阵对比：共识区间（中位数 ± 剔除离群后 min–max）、IQR×1.5 离群标记、ECharts 平行坐标 HTML | §7 离群三档归档 | `python analyze.py matrix results.csv --out-prefix out/comp` |
+| `field` | 单一结果场（温度/水分 xlsx）的时间序列 + 径向剖面 PNG | §2 工作流、论文配图 | `python analyze.py field result1.xlsx --mode both --t 100,600,1800 --r 0,1.0,2.0 --out T.png` |
+| `check` | 对照期望量级 JSON 打越界 | §6.2 期望量级自检表 | `python analyze.py check results.csv --expected expected.json` |
+
+**输入约定**（与数模交付物天然对齐）：
+- `matrix`/`check` 读 CSV：首列=管线/路名，其余列=数值指标。
+- `field` 读 result xlsx：首行=距离/网格表头、首列=时间（本工作区 `result1–4.xlsx` 正是此布局，工作表名默认 `温度`/`水分浓度`，可用 `--temp-sheet`/`--moist-sheet` 覆盖）。
+- `check` 读 `{"指标": [min, max]}` 的 JSON（`examples/expected.json` 为范本）。
+
+**用法**：动手前把每个待求量写进 `expected.json`（即 §6.2 期望量级表），跑完先 `check` 打越界、再 `matrix` 看离群、最后 `field` 出配图。**越界/离群→按 §7 定位根因，绝不改范围"洗白"。** 示例输入在 `examples/sample_results.csv`（含一条故意"读反 D"的路，`check` 可直接复现 3 处越界、`matrix` 直接标离群）。
+
+---
+
 ## 附录 A：量化失败台账（症状 → 根因 → 便宜抓法 → 后果）
 
 | # | 症状 | 根因 | 便宜抓法 | 后果量级 |
