@@ -12,6 +12,11 @@ cumcm-modeling-skill/
 ├── README.md                         # 本文件
 ├── scripts/
 │   └── analyze.py                    # 数据分析+可视化工具（matrix/field/check 三子命令）
+├── templates/                        # 四份填空模板（读题/口径/判据/对账）
+│   ├── data_inventory_template.md     #   数据清单
+│   ├── caliber_brief_template.md      #   口径简报
+│   ├── criteria_generator_template.md #   判据生成器
+│   └── provenance_ledger_template.md  #   数字溯源表
 ├── examples/
 │   ├── sample_results.csv            #   多管线结果矩阵示例（含一条离群"读反D"路）
 │   └── expected.json                 #   期望量级自检范围
@@ -32,6 +37,7 @@ cumcm-modeling-skill/
 - 想看完整证据链（哪里难、AI 哪里做砸了）→ 读 `docs/lessons-learned.md`。
 - 想看清这个工作区里到底有什么 → 读 `docs/workspace-inventory.md`。
 - 想跑数据分析/可视化 → 读 `SKILL.md` §12，用 `scripts/analyze.py`（示例输入在 `examples/`）。
+- 想直接套模板动手 → `templates/`（数据清单 / 口径简报 / 判据生成器 / 来源对账，四份填空表）。
 
 ### 数据分析 + 可视化工具（`scripts/analyze.py`）
 - `python analyze.py matrix results.csv --out-prefix out/comp`　多管线对比：共识区间 + IQR 离群标记 + ECharts 平行坐标 HTML。
