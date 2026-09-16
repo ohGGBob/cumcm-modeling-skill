@@ -9,6 +9,7 @@
 ```
 cumcm-modeling-skill/
 ├── SKILL.md                          # 数模 skill 主体（可被 DSH 直接加载）
+├── QUICKSTART.md                     # 接题 5 分钟速查卡（单屏最小闭环）
 ├── README.md                         # 本文件
 ├── scripts/
 │   └── analyze.py                    # 数据分析+可视化工具（matrix/field/check 三子命令）
@@ -21,7 +22,8 @@ cumcm-modeling-skill/
 │   ├── sample_results.csv            #   多管线结果矩阵示例（含一条离群"读反D"路）
 │   └── expected.json                 #   期望量级自检范围
 └── docs/
-    ├── failure-ledger.md              # 量化失败台账（症状→根因→便宜抓法→后果，27 条）
+    ├── failure-ledger.md              # 量化失败台账（症状→根因→便宜抓法→后果，30 条）
+    ├── failure-frequency.md           # 失败频率×严重度热表（Top10 + 矩阵实证 + 谱系图）
     ├── workspace-inventory.md         # 工作区全部文件盘点（顶层目录 + 关键产物）
     └── lessons-learned.md             # AI 做得不好/困难的复盘（含证据出处）
 ```
@@ -32,8 +34,9 @@ cumcm-modeling-skill/
 `SKILL.md` 遵循 skill 的 YAML frontmatter 约定（`name` + `description`）。把它所在目录放入 agent 的 skill 目录即可被识别；当任务涉及数模读题、建模、求解、审计或复盘时，模型会自动或手动加载。
 
 ### 直接阅读
-- 想快速抓要点 → 读 `SKILL.md` §0–§4。
-- 想逐条对照"这样做会失败" → 读 `docs/failure-ledger.md`（27 条量化台账）。
+- 想快速抓要点 → 读 `QUICKSTART.md`（接题 5 分钟速查卡）或 `SKILL.md` §0–§4。
+- 想逐条对照"这样做会失败" → 读 `docs/failure-ledger.md`（30 条量化台账）。
+- 想看"哪些坑又常见又致命" → 读 `docs/failure-frequency.md`（频率×严重度热表）。
 - 想看完整证据链（哪里难、AI 哪里做砸了）→ 读 `docs/lessons-learned.md`。
 - 想看清这个工作区里到底有什么 → 读 `docs/workspace-inventory.md`。
 - 想跑数据分析/可视化 → 读 `SKILL.md` §12，用 `scripts/analyze.py`（示例输入在 `examples/`）。
@@ -58,6 +61,7 @@ cumcm-modeling-skill/
 - **合规与收口**：匿名全文扫描（本地路径含用户名）、AI 声明官方逐字句式、工具型号不编造、附录源程序逐个运行核验——"取消资格级"红线进硬清单。
 - **尺度/对账/判据复核**：动笔先做量纲尺度标定（α/D、Bi、渗透深度、刚性来源）生成可证伪判据；数字逐条五档对账（一个输入无来源则整链无来源）；门禁判据本身也要过"环境≡初值"自检。
 - **代码审计**：最小变异探针 + 数值指纹 + 反事实/三极限/比较原理钉死符号/口径/死参数 bug；对账落地用 P0–P3 严重度 + "谁改谁复核分离" + 勿改清单，警惕"整数倍数"这类数字修辞。
+- **跨来源与盲测**：先画谱系图别把同源簇当独立佐证；交付文件逐格 diff；分歧先定性（假设/实质/口径）；公式歧义用"无提示双盲子代理"复现错误阵营来最终裁定。
 - **交付**：论文声称 ↔ 代码 ↔ 交付物三者一致；数字可回溯、可复现；结论可追溯作废；AI 声明如实填写。
 
 ## 免责
